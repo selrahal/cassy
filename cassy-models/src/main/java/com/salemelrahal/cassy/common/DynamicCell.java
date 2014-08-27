@@ -1,15 +1,11 @@
-package com.salemelrahal.gol.conway.model;
+package com.salemelrahal.cassy.common;
 
+import com.salemelrahal.cassy.gol.LifeState;
 import com.salemelrahal.cassy.model.Cell;
 import com.salemelrahal.cassy.model.State;
 
 public class DynamicCell implements Cell{
 	private State state;
-	
-	public DynamicCell() {
-		//Needed?
-		this(BinaryState.DEAD);
-	}
 	
 	public DynamicCell(State state){
 		this.state = state;
@@ -20,9 +16,7 @@ public class DynamicCell implements Cell{
 	}
 	
 	public DynamicCell clone() {
-		DynamicCell toReturn = new DynamicCell();
-		toReturn.setState(state);
-		return toReturn;
+		return new DynamicCell(state);
 	}
 	
 	public String toString() {

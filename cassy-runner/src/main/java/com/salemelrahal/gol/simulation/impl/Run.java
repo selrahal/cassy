@@ -8,7 +8,7 @@ public class Run {
 	
 	public Run(Game game) {
 		this.game = game;
-		game.init();
+		game.randomize();
 	}
 	
 	public int runTillStale() {

@@ -12,16 +12,16 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import com.salemelrahal.cassy.ant.AntState;
+import com.salemelrahal.cassy.common.DynamicCell;
+import com.salemelrahal.cassy.common.Grid;
+import com.salemelrahal.cassy.common.GridCellContainer;
+import com.salemelrahal.cassy.gol.LifeState;
 import com.salemelrahal.cassy.model.State;
 import com.salemelrahal.cassy.swing.mouse.BinaryMouseAdapter;
-import com.salemelrahal.gol.conway.model.BinaryState;
-import com.salemelrahal.gol.conway.model.DynamicCell;
-import com.salemelrahal.gol.conway.model.Grid;
-import com.salemelrahal.gol.conway.model.GridCellContainer;
 import com.salemelrahal.gol.game.impl.Game;
 
 public class DisplayGrid extends JPanel{
-	private static final int OFFSET = 10;
+	private static final int OFFSET = 5;
 	private int canvasHeight;
 	private int canvasWidth;
 	private Game game;
@@ -32,14 +32,10 @@ public class DisplayGrid extends JPanel{
 		this.game = game;
 		this.canvasHeight = ((Grid)game.getField()).getHeight() * OFFSET;
 		this.canvasWidth = ((Grid)game.getField()).getWidth() * OFFSET;
-		
         setBorder(BorderFactory.createLineBorder(Color.black));
-        
         addMouseListener(new BinaryMouseAdapter(game, this));
         addMouseMotionListener(new BinaryMouseAdapter(game, this));
         
-//        addMouseListener(new AntMouseAdapter(this));
-//        addMouseMotionListener(new AntMouseAdapter(this));
     }
 
     public Dimension getPreferredSize() {
@@ -74,14 +70,15 @@ public class DisplayGrid extends JPanel{
     	}
     }
 
-	public void set(DynamicCell dynamicCell, int x, int y) {
-		((Grid)game.getField()).set(dynamicCell, y, x);
-		repaint();
-	}
+//	public void set(DynamicCell dynamicCell, int x, int y) {
+//		((Grid)game.getField()).set(dynamicCell, y, x);
+//		repaint();
+//	}
 	
 	private Map<State, Color> getColorMap() {
 		Map<State, Color> toReturn = new HashMap<State, Color>();
-		toReturn.put(BinaryState.ALIVE, Color.BLACK);
+		toReturn.put(LifeState.ALIVE, Color.BLACK);
+		toReturn.put(LifeState.DYING, Color.BLUE);
 //		toReturn.put(BinaryState.DEAD, Color.WHITE);
 //		toReturn.put(new AntState(AntState.Color.WHITE, AntState.Direction.NONE), Color.WHITE);
 		toReturn.put(new AntState(AntState.Color.BLACK, AntState.Direction.NONE), Color.BLACK);
@@ -94,5 +91,9 @@ public class DisplayGrid extends JPanel{
 		toReturn.put(new AntState(AntState.Color.BLACK, AntState.Direction.LEFT), Color.RED);
 		toReturn.put(new AntState(AntState.Color.BLACK, AntState.Direction.RIGHT), Color.RED);
 		return toReturn;
+	}
+	
+	public int getOffset() {
+		return OFFSET;
 	}
 }

@@ -7,5 +7,5 @@ public interface Field {
 //	public Collection<Cell> getNeighbors(Cell cell);
 	public Field clone();
 //	public void replace(Cell cell, Cell newCell);
-	public void clear();
+//	public void clear();
 }

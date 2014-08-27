@@ -1,9 +1,9 @@
 package com.salemelrahal.cassy.ant;
 
+import com.salemelrahal.cassy.common.DynamicCell;
+import com.salemelrahal.cassy.common.Grid;
 import com.salemelrahal.cassy.model.Cell;
 import com.salemelrahal.cassy.rule.Rule;
-import com.salemelrahal.gol.conway.model.DynamicCell;
-import com.salemelrahal.gol.conway.model.Grid;
 
 public class AntRule implements Rule<AntState, Grid>{	
 	public String toString() {
@@ -12,7 +12,8 @@ public class AntRule implements Rule<AntState, Grid>{
 
 	public Grid calculateNextField(Grid grid) {
 		Grid toReturn = new Grid(grid.getWidth(), grid.getHeight());
-		boolean foundAnt = false;
+		//TODO: not have to call the below line
+		toReturn.fillCells(new DynamicCell(new AntState(null, null)));
 		for (int x = 0 ; x < grid.getWidth(); x++) {
 			for (int y = 0; y < grid.getHeight(); y++) {
 				AntState.Color newColor = null;
@@ -37,16 +38,12 @@ public class AntRule implements Rule<AntState, Grid>{
 						Cell right = grid.getCell(x + 1, y);
 						if ((isRight(up) && isWhite(up)) || (isLeft(up) && isBlack(up))){
 							newDirection = AntState.Direction.DOWN;
-							foundAnt = true;
 						} else if ((isUp(left) && isWhite(left)) || (isDown(left) && isBlack(left))) {
 							newDirection = AntState.Direction.RIGHT;
-							foundAnt = true;
 						} else if ((isLeft(down) && isWhite(down)) || (isRight(down) && isBlack(down))) {
 							newDirection = AntState.Direction.UP;
-							foundAnt = true;
 						} else if ((isDown(right) && isWhite(right)) || (isUp(right) && isBlack(right))) {
 							newDirection = AntState.Direction.LEFT;
-							foundAnt = true;
 						} else {
 							//No ant will move on to this spot :(
 							newDirection = AntState.Direction.NONE;
@@ -57,8 +54,7 @@ public class AntRule implements Rule<AntState, Grid>{
 				
 				//Add the new cell to the grid!
 				AntState newState = new AntState(newColor, newDirection);
-				DynamicCell newCell = new DynamicCell();
-				newCell.setState(newState);
+				DynamicCell newCell = new DynamicCell(newState);
 				toReturn.set(newCell, y, x);
 			}
 		}

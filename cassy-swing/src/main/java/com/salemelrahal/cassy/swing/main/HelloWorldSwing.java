@@ -59,12 +59,12 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 
-import com.salemelrahal.cassy.ant.AntRule;
+import com.salemelrahal.cassy.common.Grid;
+import com.salemelrahal.cassy.gol.brain.BriansBrain;
+import com.salemelrahal.cassy.simulation.Simulation;
 import com.salemelrahal.cassy.swing.button.StartGameActionListener;
 import com.salemelrahal.cassy.swing.canvas.DisplayGrid;
-import com.salemelrahal.gol.conway.model.Grid;
 import com.salemelrahal.gol.game.impl.Game;
-import com.salemelrahal.gol.init.impl.AntGridInitializer;
  
 public class HelloWorldSwing {
     /**
@@ -74,13 +74,13 @@ public class HelloWorldSwing {
      */
     private static void createAndShowGUI() {
     	
+//    	Simulation simulation = new LangtonsAnt();
+//    	Simulation simulation = new ConwaysGameOfLife();
+    	Simulation simulation = new BriansBrain();
+//    	Simulation simulation = new Seeds();
     	
-    	
-//    	Grid grid = new Grid(30, 30);
-//    	Game game = new Game(grid, new ClassicRule(), new GridInitializer());
-    	
-    	Grid grid = new Grid(50, 50);
-    	Game game = new Game(grid, new AntRule(), new AntGridInitializer());
+    	Grid grid = new Grid(100, 100);
+    	Game game = new Game(grid, simulation.getRule(), simulation.getInitializer());
     	game.reset();
     	
     	
@@ -124,7 +124,7 @@ public class HelloWorldSwing {
         clear.addActionListener(actionListener);
         
         frame.setLayout(new FlowLayout());
-        frame.setSize(600, 400);
+        frame.setSize(800, 600);
         
         frame.getContentPane().add(displayGrid);
         

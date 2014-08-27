@@ -1,4 +1,4 @@
-package com.salemelrahal.gol.conway.model;
+package com.salemelrahal.cassy.common;
 
 import com.salemelrahal.cassy.model.Cell;
 

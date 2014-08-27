@@ -1,4 +1,4 @@
-package com.salemelrahal.gol.conway.model;
+package com.salemelrahal.cassy.common;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,18 +16,18 @@ public class Grid implements Field{
 	public Grid(int width, int height) {
 		this.width = width;
 		this.height = height;
-		clear();
+//		clear();
 	}
 	
-	public void clear() {
-		cells = new ArrayList<List<Cell>>(height);
-		for (int i = 0 ; i < height ; i++) {
-			cells.add(new ArrayList<Cell>(width));
-			for (int j = 0; j < width; j++) {
-				cells.get(i).add(new DynamicCell());
-			}
-		}
-	}
+//	public void clear() {
+//		cells = new ArrayList<List<Cell>>(height);
+//		for (int i = 0 ; i < height ; i++) {
+//			cells.add(new ArrayList<Cell>(width));
+//			for (int j = 0; j < width; j++) {
+//				cells.get(i).add(new DynamicCell());
+//			}
+//		}
+//	}
 	
 	
 	private Cell getSafe(int row, int column) {
@@ -44,16 +44,18 @@ public class Grid implements Field{
 		try {
 			cells.get(row).set(column, newCell);
 		} catch (Exception e) {
-			
+			System.out.println(e);
 		}
 	}
 	
 	public Grid clone() {
 		Grid toReturn = new Grid(this.width, this.height);
+		toReturn.cells = new ArrayList<List<Cell>>(height);
 		for (int row = 0; row < this.height; row++) {
+			toReturn.cells.add(new ArrayList<Cell>(width));
 			for (int column = 0; column < this.width; column++) {
 				Cell cell = this.cells.get(row).get(column);
-				toReturn.cells.get(row).set(column, cell);
+				toReturn.cells.get(row).add(cell);
 			}
 		}
 		return toReturn;
@@ -167,6 +169,16 @@ public class Grid implements Field{
 			}
 		}
 		return true;
+	}
+
+	public void fillCells(DynamicCell dynamicCell) {
+		cells = new ArrayList<List<Cell>>(height);
+		for (int i = 0 ; i < height ; i++) {
+			cells.add(new ArrayList<Cell>(width));
+			for (int j = 0; j < width; j++) {
+				cells.get(i).add(dynamicCell.clone());
+			}
+		}
 	}
 
 }

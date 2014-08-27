@@ -6,15 +6,16 @@ import com.salemelrahal.cassy.rule.Rule;
 
 public class Game {
 	private Field field;
-	private Field nextField;
+//	private Field nextField;
 	private Rule rule;
 	private Initializer initializer;
 	
 	public Game(Field field, Rule rule, Initializer initializer) {
 		this.field =field;
 		this.rule = rule;
-		this.nextField = field.clone();
+//		this.nextField = field.clone();
 		this.initializer = initializer;
+		initializer.initialize(field);
 	}
 	
 	//Only support synchronous updating for now
@@ -61,5 +62,9 @@ public class Game {
 	
 	public void click(int x, int y) {
 		initializer.click(field, x, y);
+	}
+
+	public void randomize() {
+		initializer.randomize(field);
 	}
 }

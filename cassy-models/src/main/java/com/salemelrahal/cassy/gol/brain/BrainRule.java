@@ -1,31 +1,28 @@
-package com.salemelrahal.gol.conway.rule;
+package com.salemelrahal.cassy.gol.brain;
 
+import com.salemelrahal.cassy.common.DynamicCell;
+import com.salemelrahal.cassy.common.Grid;
+import com.salemelrahal.cassy.gol.LifeState;
 import com.salemelrahal.cassy.model.Cell;
-import com.salemelrahal.cassy.model.Field;
 import com.salemelrahal.cassy.model.State;
 import com.salemelrahal.cassy.rule.Rule;
-import com.salemelrahal.gol.conway.model.BinaryState;
-import com.salemelrahal.gol.conway.model.DynamicCell;
-import com.salemelrahal.gol.conway.model.Grid;
 
-public class ClassicRule implements Rule<BinaryState, Grid>{
+public class BrainRule implements Rule<LifeState, Grid>{
 	public State calculateNextState(Cell cell, int row, int column, Grid field) {
 		int aliveNeighbors = 0;
 		for (Cell neighbor : field.getNeighbors(row, column)) {
-			if (neighbor.getState().equals(BinaryState.ALIVE)) {
+			if (neighbor.getState().equals(LifeState.ALIVE)) {
 				aliveNeighbors++;
 			}
 		}
-		if (aliveNeighbors < 2){
-			return BinaryState.DEAD;
-		}else if (aliveNeighbors == 2 && cell.getState().equals(BinaryState.ALIVE)){
-			return BinaryState.ALIVE;
-		}else if (aliveNeighbors == 2 && !cell.getState().equals(BinaryState.ALIVE)) {
-			return BinaryState.DEAD;
-		}else if (aliveNeighbors == 3){
-			return BinaryState.ALIVE;
+		if (cell.getState().equals(LifeState.ALIVE)){
+			return LifeState.DYING;
+		}else if (cell.getState().equals(LifeState.DYING)) {
+			return LifeState.DEAD;
+		}else if (aliveNeighbors == 2 ){
+			return LifeState.ALIVE;
 		}else {
-			return BinaryState.DEAD;
+			return LifeState.DEAD;
 		}
 	}
 	
@@ -42,8 +39,7 @@ public class ClassicRule implements Rule<BinaryState, Grid>{
 				Cell cell = grid.getCell(x, y);
 				State newState = this.calculateNextState(cell, y, x, grid);
 				if (cell.shouldChange(newState)) {
-					DynamicCell newCell = new DynamicCell();
-					newCell.setState(newState);
+					DynamicCell newCell = new DynamicCell(newState);
 					nextField.set(newCell, y, x);
 				}
 			}

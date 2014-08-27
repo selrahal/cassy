@@ -1,27 +1,25 @@
-package com.salemelrahal.gol.init.impl;
+package com.salemelrahal.cassy.ant;
 
-import com.salemelrahal.cassy.ant.AntState;
+import com.salemelrahal.cassy.common.DynamicCell;
+import com.salemelrahal.cassy.common.Grid;
+import com.salemelrahal.cassy.gol.LifeState;
 import com.salemelrahal.cassy.init.Initializer;
 import com.salemelrahal.cassy.model.Cell;
-import com.salemelrahal.gol.conway.model.BinaryState;
-import com.salemelrahal.gol.conway.model.DynamicCell;
-import com.salemelrahal.gol.conway.model.Grid;
 
 public class AntGridInitializer implements Initializer<Grid>{
 
 	public void initialize(Grid grid) {
-		int height = grid.getHeight();
-		int width = grid.getWidth();
-		for (int row = 0; row < height; row++) {
-			for (int column = 0; column < width; column++) {
-				DynamicCell cell = new DynamicCell();
+//		int height = grid.getHeight();
+//		int width = grid.getWidth();
+//		for (int row = 0; row < height; row++) {
+//			for (int column = 0; column < width; column++) {
+		grid.fillCells(new DynamicCell(new AntState(AntState.Color.WHITE, AntState.Direction.NONE)));
 //				cell.setState(((new Random()).nextBoolean()?BinaryState.DEAD:BinaryState.ALIVE));
 				
-				cell.setState(new AntState(AntState.Color.WHITE, AntState.Direction.NONE));
-				grid.set(cell, row, column);
+//				grid.set(cell, row, column);
 //				initializer.init(cells.get(row).get(column), this.getNeighbors(cells.get(row).get(column)));
-			}
-		}
+//			}
+//		}
 	}
 
 	public void click(Grid grid, int x, int y) {
@@ -33,7 +31,12 @@ public class AntGridInitializer implements Initializer<Grid>{
 		} else if (state.getColor().equals(AntState.Color.BLACK)) {
 			cell.setState(new AntState(AntState.Color.WHITE, AntState.Direction.NONE));
 		} else if (state.getColor().equals(AntState.Color.WHITE)) {
-			cell.setState(new AntState(AntState.Color.WHITE, AntState.Direction.RIGHT));
+			cell.setState(new AntState(AntState.Color.WHITE, AntState.Direction.LEFT));
 		}
+	}
+
+	public void randomize(Grid field) {
+		// TODO Auto-generated method stub
+		
 	}
 }
