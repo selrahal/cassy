@@ -3,6 +3,7 @@ package com.salemelrahal.gol.simulation.impl;
 import com.salemelrahal.gol.conway.rule.ClassicRule;
 import com.salemelrahal.gol.factory.impl.GridFactory;
 import com.salemelrahal.gol.game.impl.Game;
+import com.salemelrahal.gol.init.impl.GridInitializer;
 
 public class Runner {
 	private static final int WIDTH = 10;
@@ -16,7 +17,7 @@ public class Runner {
 			scores[i] = 0;
 		}
 		for (int i = 0; i < 10; i++) {
-			Game game = new Game(gridFactory.next(),new ClassicRule());
+			Game game = new Game(gridFactory.next(),new ClassicRule(), new GridInitializer());
 			Run run = new Run(game);
 			int runs = run.runTillStale();
 			scores[runs]++;

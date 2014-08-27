@@ -8,6 +8,7 @@ public class Run {
 	
 	public Run(Game game) {
 		this.game = game;
+		game.init();
 	}
 	
 	public int runTillStale() {

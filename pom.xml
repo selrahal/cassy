@@ -10,5 +10,6 @@
   	<module>cassy-models</module>
   	<module>cassy-engine</module>
   	<module>cassy-runner</module>
+  	<module>cassy-swing</module>
   </modules>
 </project>
