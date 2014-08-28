@@ -3,36 +3,39 @@ package com.salemelrahal.cassy.swing.mouse;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JPanel;
-
 import com.salemelrahal.cassy.swing.canvas.DisplayGrid;
-import com.salemelrahal.gol.game.impl.Game;
+import com.salemelrahal.cassy.swing.conatiner.SimulationContainer;
 
 public class BinaryMouseAdapter extends MouseAdapter{
-	private Game game;
-	DisplayGrid displayGrid;
+	private SimulationContainer simulationContainer;
+	private DisplayGrid displayGrid;
 	
-	public BinaryMouseAdapter(Game game, DisplayGrid displayGrid) {
-		this.game = game;
+	public BinaryMouseAdapter(SimulationContainer simulationContainer, DisplayGrid displayGrid) {
+		this.simulationContainer = simulationContainer;
 		this.displayGrid = displayGrid;
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		super.mouseClicked(e);
-		this.setAlive(e.getX() / displayGrid.getOffset(), e.getY() / displayGrid.getOffset());
+		int x = e.getX() / displayGrid.getOffset();
+		int y =  e.getY() / displayGrid.getOffset();
+		simulationContainer.getGame().click(x,y);
+		this.setAlive(e.getX(),e.getY());
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		super.mouseDragged(e);
-		this.setAlive(e.getX() / displayGrid.getOffset(), e.getY() / displayGrid.getOffset());
+		int x = e.getX() / displayGrid.getOffset();
+		int y =  e.getY() / displayGrid.getOffset();
+		simulationContainer.getGame().drag(x,y);
+		this.setAlive(e.getX(),e.getY());
 	}
 	
 	private void setAlive(int x, int y) {
-		System.out.println("set ant x:"+x+"   y:"+y);
-		game.click(x,y);
-		displayGrid.repaint();
+		
+		displayGrid.repaint(x, y, displayGrid.getOffset(), displayGrid.getOffset());
 	}
 
 }

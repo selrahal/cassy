@@ -6,16 +6,17 @@ import java.awt.event.ActionListener;
 import javax.swing.JComponent;
 import javax.swing.JSlider;
 
+import com.salemelrahal.cassy.swing.conatiner.SimulationContainer;
 import com.salemelrahal.gol.game.impl.Game;
 
 public class StartGameActionListener implements ActionListener{
-	private Game game;
+	private SimulationContainer simulationContainer;
 	private JComponent field;
 	private boolean running = false;
 	private JSlider slider;
 	
-	public StartGameActionListener(Game game, JComponent field, JSlider slider) {
-		this.game = game;
+	public StartGameActionListener(SimulationContainer simulationContainer, JComponent field, JSlider slider) {
+		this.simulationContainer = simulationContainer;
 		this.field = field;
 		this.slider = slider;
 	}
@@ -23,7 +24,7 @@ public class StartGameActionListener implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		System.out.println(arg0.getActionCommand());
 		if ("step".equals(arg0.getActionCommand())) {
-			game.iterate();
+			(simulationContainer.getGame()).iterate();
 			field.repaint();
 		} else if ("stop".equals(arg0.getActionCommand())) {
 			running = false;
@@ -32,24 +33,28 @@ public class StartGameActionListener implements ActionListener{
 			Thread run = new Thread(new RunGame());
 			run.start();
 		} else if ("clear".equals(arg0.getActionCommand())) {
-			game.reset();
+			(simulationContainer.getGame()).reset();
 			field.repaint();
 		}
 		
 	}
 	
 	private class RunGame implements Runnable {
+		long stime = System.currentTimeMillis();
+		long ptime = System.currentTimeMillis();
 		public void run() {
-			System.out.println("Thread " + running);
-			while (running && game.iterate()) {
+			while (running && (simulationContainer.getGame()).iterate()) {
+				System.out.println("ITERA:" + (System.currentTimeMillis() - stime));
+				ptime = System.currentTimeMillis();
 				field.repaint();
-				System.out.println("ITERATE");
+				System.out.println("PAINT:" + (System.currentTimeMillis() - ptime));
 				try {
 					Thread.sleep(1000 - slider.getValue());
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				stime = System.currentTimeMillis();
 			}
 		}
 	}

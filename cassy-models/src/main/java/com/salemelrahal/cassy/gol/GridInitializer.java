@@ -16,32 +16,25 @@ public class GridInitializer implements Initializer<Grid>{
 			for (int column = 0; column < width; column++) {
 				DynamicCell cell = new DynamicCell(((new Random()).nextBoolean()?LifeState.DEAD:LifeState.ALIVE));
 				grid.set(cell, row, column);
-//				initializer.init(cells.get(row).get(column), this.getNeighbors(cells.get(row).get(column)));
 			}
 		}
 	}
 
 	public void initialize(Grid grid) {
 		grid.fillCells(new DynamicCell(LifeState.DEAD));
-//		int height = grid.getHeight();
-//		int width = grid.getWidth();
-//		for (int row = 0; row < height; row++) {
-//			for (int column = 0; column < width; column++) {
-//				DynamicCell cell = 
-////				cell.setState(((new Random()).nextBoolean()?BinaryState.DEAD:BinaryState.ALIVE));
-//				grid.set(cell, row, column);
-////				initializer.init(cells.get(row).get(column), this.getNeighbors(cells.get(row).get(column)));
-//			}
-//		}
 	}
 
 	public void click(Grid grid, int x, int y) {
 		Cell cell = grid.getCell(x, y);
-//		BinaryState state = (BinaryState)cell.getState();
-//		if (state.equals(BinaryState.ALIVE)) {
-//			cell.setState(BinaryState.DEAD);
-//		} else if (state.equals(BinaryState.DEAD)) {
+		LifeState state = (LifeState)cell.getState();
+		if (state.equals(LifeState.ALIVE)) {
+			cell.setState(LifeState.DEAD);
+		} else if (state.equals(LifeState.DEAD)) {
 			cell.setState(LifeState.ALIVE);
-//		}
+		}
+	}
+
+	public void drag(Grid grid, int x, int y) {
+		grid.getCell(x, y).setState(LifeState.ALIVE);
 	}
 }

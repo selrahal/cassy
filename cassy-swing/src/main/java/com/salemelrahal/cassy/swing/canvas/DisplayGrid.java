@@ -12,29 +12,32 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import com.salemelrahal.cassy.ant.AntState;
-import com.salemelrahal.cassy.common.DynamicCell;
 import com.salemelrahal.cassy.common.Grid;
 import com.salemelrahal.cassy.common.GridCellContainer;
 import com.salemelrahal.cassy.gol.LifeState;
 import com.salemelrahal.cassy.model.State;
+import com.salemelrahal.cassy.swing.conatiner.SimulationContainer;
 import com.salemelrahal.cassy.swing.mouse.BinaryMouseAdapter;
+import com.salemelrahal.cassy.wireworld.WireState;
 import com.salemelrahal.gol.game.impl.Game;
 
 public class DisplayGrid extends JPanel{
-	private static final int OFFSET = 5;
+	private static final int OFFSET = 3;
+	
+	//TODO: Factor dimensions out so they can change.
 	private int canvasHeight;
 	private int canvasWidth;
-	private Game game;
+	private SimulationContainer simulationContainer;
 	
     
-	public DisplayGrid(Game game) {
+	public DisplayGrid(SimulationContainer simulationContainer) {
 		super();
-		this.game = game;
-		this.canvasHeight = ((Grid)game.getField()).getHeight() * OFFSET;
-		this.canvasWidth = ((Grid)game.getField()).getWidth() * OFFSET;
+		this.simulationContainer = simulationContainer;
+		this.canvasHeight = ((Grid)(simulationContainer.getGame()).getField()).getHeight() * OFFSET;
+		this.canvasWidth = ((Grid)(simulationContainer.getGame()).getField()).getWidth() * OFFSET;
         setBorder(BorderFactory.createLineBorder(Color.black));
-        addMouseListener(new BinaryMouseAdapter(game, this));
-        addMouseMotionListener(new BinaryMouseAdapter(game, this));
+        addMouseListener(new BinaryMouseAdapter(simulationContainer, this));
+        addMouseMotionListener(new BinaryMouseAdapter(simulationContainer, this));
         
     }
 
@@ -44,7 +47,6 @@ public class DisplayGrid extends JPanel{
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);       
-        System.out.println("paintComponent called");
         this.drawCells(g);
         this.drawGrid(g);
     }
@@ -52,8 +54,7 @@ public class DisplayGrid extends JPanel{
     private void drawCells(Graphics g) {
     	for (Entry<State, Color> entry : getColorMap().entrySet()) {
     		g.setColor(entry.getValue());
-    		List<GridCellContainer> aliveCells = ((Grid)game.getField()).getCellsByState(entry.getKey());
-    		System.out.println("Fetched " + aliveCells.size() + " alive cells");
+    		List<GridCellContainer> aliveCells = ((Grid)(simulationContainer.getGame()).getField()).getCellsByState(entry.getKey());
     		for (GridCellContainer container : aliveCells) {
 	    		g.fillRect(container.getX() * OFFSET, container.getY() * OFFSET, OFFSET, OFFSET);
 	    	}
@@ -69,11 +70,6 @@ public class DisplayGrid extends JPanel{
     		g.drawLine(0, y, canvasWidth, y);
     	}
     }
-
-//	public void set(DynamicCell dynamicCell, int x, int y) {
-//		((Grid)game.getField()).set(dynamicCell, y, x);
-//		repaint();
-//	}
 	
 	private Map<State, Color> getColorMap() {
 		Map<State, Color> toReturn = new HashMap<State, Color>();
@@ -90,6 +86,10 @@ public class DisplayGrid extends JPanel{
 		toReturn.put(new AntState(AntState.Color.BLACK, AntState.Direction.DOWN), Color.RED);
 		toReturn.put(new AntState(AntState.Color.BLACK, AntState.Direction.LEFT), Color.RED);
 		toReturn.put(new AntState(AntState.Color.BLACK, AntState.Direction.RIGHT), Color.RED);
+		toReturn.put(WireState.EMTPY, Color.WHITE);
+		toReturn.put(WireState.HEAD, Color.BLUE);
+		toReturn.put(WireState.TAIL, Color.RED);
+		toReturn.put(WireState.WIRE, Color.YELLOW);
 		return toReturn;
 	}
 	

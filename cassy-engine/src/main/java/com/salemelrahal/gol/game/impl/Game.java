@@ -67,4 +67,8 @@ public class Game {
 	public void randomize() {
 		initializer.randomize(field);
 	}
+
+	public void drag(int x, int y) {
+		initializer.drag(field, x, y);
+	}
 }
