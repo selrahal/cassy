@@ -13,7 +13,7 @@ public class LifeSimulation implements Simulation {
 	private String survives;
 	private String born;
 	
-	public LifeSimulation(String survives, String born) {
+	public LifeSimulation(String born, String survives) {
 		this.survives = survives;
 		this.born = born;
 	}

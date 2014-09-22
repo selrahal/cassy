@@ -22,9 +22,11 @@ public class SimulationRegistry {
 		simulationMap.put("Conway's Game of Life", new ConwaysGameOfLife());
 		simulationMap.put("WireWorld", new WireWorld());
 		simulationMap.put("Langton's Ant", new LangtonsAnt());
-		simulationMap.put("Seeds", new Seeds());
+		simulationMap.put("Seeds 2/", new Seeds());
 		simulationMap.put("Brian's Brain", new BriansBrain());
-		simulationMap.put("1357/1357", new LifeSimulation("1357", "1357"));
+		simulationMap.put("Replicator 1357/1357", new LifeSimulation("1357", "1357"));
+		simulationMap.put("Life without Death 3/012345678", new LifeSimulation("3", "012345678"));
+		simulationMap.put("Diamoeba 35678/5678", new LifeSimulation("35678", "5678"));
 	}
 	
 	public static List<String> getSimulations() {
