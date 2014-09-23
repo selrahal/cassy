@@ -3,6 +3,8 @@ package com.salemelrahal.cassy.swing.canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,33 +18,28 @@ import com.salemelrahal.cassy.common.Grid;
 import com.salemelrahal.cassy.common.GridCellContainer;
 import com.salemelrahal.cassy.gol.LifeState;
 import com.salemelrahal.cassy.model.State;
+import com.salemelrahal.cassy.simulation.Simulation;
 import com.salemelrahal.cassy.swing.conatiner.SimulationContainer;
-import com.salemelrahal.cassy.swing.mouse.BinaryMouseAdapter;
 import com.salemelrahal.cassy.wireworld.WireState;
-import com.salemelrahal.gol.game.impl.Game;
 
 public class DisplayGrid extends JPanel{
-	private static final int OFFSET = 3;
-	
-	//TODO: Factor dimensions out so they can change.
+	private static final long serialVersionUID = 2697245729821535302L;
+	private int offset = 5;;
 	private int canvasHeight;
 	private int canvasWidth;
 	private SimulationContainer simulationContainer;
 	
     
-	public DisplayGrid(SimulationContainer simulationContainer) {
+	public DisplayGrid(int canvasHeight, int canvasWidth, SimulationContainer simulationContainer) {
 		super();
+		this.canvasHeight = canvasHeight;
+		this.canvasWidth = canvasWidth;
 		this.simulationContainer = simulationContainer;
-		this.canvasHeight = ((Grid)(simulationContainer.getGame()).getField()).getHeight() * OFFSET;
-		this.canvasWidth = ((Grid)(simulationContainer.getGame()).getField()).getWidth() * OFFSET;
         setBorder(BorderFactory.createLineBorder(Color.black));
-        addMouseListener(new BinaryMouseAdapter(simulationContainer, this));
-        addMouseMotionListener(new BinaryMouseAdapter(simulationContainer, this));
-        
     }
-
+	
     public Dimension getPreferredSize() {
-        return new Dimension(canvasWidth,canvasHeight);
+    	return new Dimension(canvasHeight, canvasWidth);
     }
 
     public void paintComponent(Graphics g) {
@@ -54,19 +51,19 @@ public class DisplayGrid extends JPanel{
     private void drawCells(Graphics g) {
     	for (Entry<State, Color> entry : getColorMap().entrySet()) {
     		g.setColor(entry.getValue());
-    		List<GridCellContainer> aliveCells = ((Grid)(simulationContainer.getGame()).getField()).getCellsByState(entry.getKey());
+    		List<GridCellContainer> aliveCells = ((Grid)simulationContainer.getField()).getCellsByState(entry.getKey());
     		for (GridCellContainer container : aliveCells) {
-	    		g.fillRect(container.getX() * OFFSET, container.getY() * OFFSET, OFFSET, OFFSET);
+	    		g.fillRect(container.getX() * offset, container.getY() * offset, offset, offset);
 	    	}
     	}
     }
     
     private void drawGrid(Graphics g) {
         g.setColor(Color.BLACK);
-        for (int x = 0; x < canvasWidth; x += OFFSET) {
+        for (int x = 0; x < canvasWidth; x += offset) {
         	g.drawLine(x, 0, x, canvasHeight);
         }
-    	for (int y = 0; y < canvasHeight; y += OFFSET) {
+    	for (int y = 0; y < canvasHeight; y += offset) {
     		g.drawLine(0, y, canvasWidth, y);
     	}
     }
@@ -94,6 +91,35 @@ public class DisplayGrid extends JPanel{
 	}
 	
 	public int getOffset() {
-		return OFFSET;
+		return offset;
+	}
+	
+	public void addMouseListener(MouseListener listener) {
+		super.addMouseListener(listener);
+	}
+	
+	public void addMouseMotionListener(MouseMotionListener listener) {
+		super.addMouseMotionListener(listener);
+	}
+
+	public void click(int x, int y) {
+		simulationContainer.click(x/offset, y/offset);
+		this.repaintCell(x, y);
+	}
+
+	public void drag(int x, int y) {
+		simulationContainer.drag(x/offset, y/offset);
+		this.repaintCell(x, y);
+	}
+	
+	private void repaintCell(int x, int y) {
+		int cellx = x/offset;
+		int celly = y/offset;
+		this.repaint(cellx*offset, celly*offset, offset, offset);
+	}
+
+	public void setSimulation(Simulation simulation) {
+		simulationContainer.setSimulation(simulation);
+		this.repaint();
 	}
 }

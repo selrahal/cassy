@@ -7,7 +7,6 @@ import javax.swing.JComponent;
 import javax.swing.JSlider;
 
 import com.salemelrahal.cassy.swing.conatiner.SimulationContainer;
-import com.salemelrahal.gol.game.impl.Game;
 
 public class StartGameActionListener implements ActionListener{
 	private SimulationContainer simulationContainer;
@@ -24,7 +23,7 @@ public class StartGameActionListener implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		System.out.println(arg0.getActionCommand());
 		if ("step".equals(arg0.getActionCommand())) {
-			(simulationContainer.getGame()).iterate();
+			simulationContainer.iterate();
 			field.repaint();
 		} else if ("stop".equals(arg0.getActionCommand())) {
 			running = false;
@@ -33,7 +32,7 @@ public class StartGameActionListener implements ActionListener{
 			Thread run = new Thread(new RunGame());
 			run.start();
 		} else if ("clear".equals(arg0.getActionCommand())) {
-			(simulationContainer.getGame()).reset();
+			simulationContainer.reset();
 			field.repaint();
 		}
 		
@@ -43,7 +42,7 @@ public class StartGameActionListener implements ActionListener{
 		long stime = System.currentTimeMillis();
 		long ptime = System.currentTimeMillis();
 		public void run() {
-			while (running && (simulationContainer.getGame()).iterate()) {
+			while (running && simulationContainer.iterate()) {
 				System.out.println("ITERA:" + (System.currentTimeMillis() - stime));
 				ptime = System.currentTimeMillis();
 				field.repaint();

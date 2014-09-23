@@ -16,19 +16,7 @@ public class Grid implements Field{
 	public Grid(int width, int height) {
 		this.width = width;
 		this.height = height;
-//		clear();
 	}
-	
-//	public void clear() {
-//		cells = new ArrayList<List<Cell>>(height);
-//		for (int i = 0 ; i < height ; i++) {
-//			cells.add(new ArrayList<Cell>(width));
-//			for (int j = 0; j < width; j++) {
-//				cells.get(i).add(new DynamicCell());
-//			}
-//		}
-//	}
-	
 	
 	private Cell getSafe(int row, int column) {
 		Cell toReturn = null;
@@ -83,13 +71,6 @@ public class Grid implements Field{
 	}
 
 	public Collection<Cell> getNeighbors(int row, int column) {
-//		Collection<Cell> neighbors = new ArrayList<Cell>();
-//		Coordinate cCell = this.findCell(cell);
-//		if (cCell == null) {
-//			throw new RuntimeException("Cell not here!!!");
-//		}
-//		int row = cCell.row;
-//		int column = cCell.column;
 		Collection<Cell> neighbors = new ArrayList<Cell>();
 		for (int i = -1 ; i < 2 ; i++) {
 			for (int j = -1; j < 2; j++) {
@@ -103,30 +84,6 @@ public class Grid implements Field{
 		}
 		return neighbors;
 	}
-
-//	public void replace(Cell cell, Cell newCell) {
-//		Coordinate cCell = this.findCell(cell);
-//		if (cCell == null) {
-//			throw new RuntimeException("Cell not here!" + cell);
-//		} else {
-//			this.cells.get(cCell.row).set(cCell.column, newCell);
-//		}
-//		
-//	}
-	
-//	private Coordinate findCell(Cell cell){
-//		for (int row = 0; row < this.height; row++) {
-//			for (int column = 0; column < this.width; column++) {
-//				if (this.cells.get(row).get(column).equals(cell)) {
-//					Coordinate toReturn = new Coordinate();
-//					toReturn.row = row;
-//					toReturn.column = column;
-//					return toReturn;
-//				}
-//			}
-//		}
-//		return null;
-//	}
 	
 	private class Coordinate {
 		int row,column;

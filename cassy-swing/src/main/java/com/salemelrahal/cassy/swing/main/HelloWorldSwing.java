@@ -67,6 +67,7 @@ import com.salemelrahal.cassy.swing.button.ChooseSimulationActionListener;
 import com.salemelrahal.cassy.swing.button.StartGameActionListener;
 import com.salemelrahal.cassy.swing.canvas.DisplayGrid;
 import com.salemelrahal.cassy.swing.conatiner.SimulationContainer;
+import com.salemelrahal.cassy.swing.mouse.BinaryMouseAdapter;
 import com.salemelrahal.gol.game.impl.Game;
 import com.salemelrahal.gol.simulation.impl.SimulationRegistry;
  
@@ -78,13 +79,13 @@ public class HelloWorldSwing {
      */
     private static void createAndShowGUI() {
     	
-
+    	int canvasHeight = 200;
+    	int canvasWidth = 200;
     	Simulation simulation = new Seeds();
     	SimulationContainer simulationContainer = new SimulationContainer(simulation);
-    	
-    	Grid grid = new Grid(100, 100);
-    	Game game = new Game(grid, simulation.getRule(), simulation.getInitializer());
-    	game.reset();
+    	DisplayGrid displayGrid = new DisplayGrid(canvasHeight, canvasWidth, simulationContainer);
+    	displayGrid.addMouseListener(new BinaryMouseAdapter(displayGrid));
+    	displayGrid.addMouseMotionListener(new BinaryMouseAdapter(displayGrid));
     	
     	
     	
@@ -104,9 +105,9 @@ public class HelloWorldSwing {
                 BorderFactory.createEmptyBorder(0,0,10,0));
         Font font = new Font("Serif", Font.ITALIC, 5);
         slider.setFont(font);
-        JPanel displayGrid = new DisplayGrid(simulationContainer);
+        
         JComboBox simulationList = new JComboBox(SimulationRegistry.getSimulations().toArray());
-        simulationList.addActionListener(new ChooseSimulationActionListener(simulationContainer, displayGrid));
+        simulationList.addActionListener(new ChooseSimulationActionListener(displayGrid));
     	
     	
     	JPanel buttons = new JPanel();
@@ -144,6 +145,7 @@ public class HelloWorldSwing {
         //Display the window.
         frame.pack();
         frame.setVisible(true);
+        System.out.println("DONE?");
     }
  
     public static void main(String[] args) {

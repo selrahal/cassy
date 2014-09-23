@@ -2,42 +2,24 @@ package com.salemelrahal.gol.game.impl;
 
 import com.salemelrahal.cassy.init.Initializer;
 import com.salemelrahal.cassy.model.Field;
+import com.salemelrahal.cassy.model.State;
 import com.salemelrahal.cassy.rule.Rule;
 
-public class Game {
-	private Field field;
-//	private Field nextField;
-	private Rule rule;
-	private Initializer initializer;
+public class Game<F extends Field, S extends State> {
+	private F field;
+	private Rule<S,F> rule;
+	private Initializer<F> initializer;
 	
-	public Game(Field field, Rule rule, Initializer initializer) {
+	public Game(F field, Rule<S,F> rule, Initializer<F> initializer) {
 		this.field =field;
 		this.rule = rule;
-//		this.nextField = field.clone();
 		this.initializer = initializer;
 		initializer.initialize(field);
 	}
 	
-	//Only support synchronous updating for now
-	//will return a boolean indicating whether or not a change has occured
 	public boolean iterate() {
-		boolean changed = false;
-//		this.nextField = this.field.clone();
-		
-//		for (Cell cell : field.getCells()) {
-//			State newState = rule.calculateNextState(cell, field);
-//			if (cell.shouldChange(newState)) {
-//				changed = true;
-//				Cell newCell = cell.clone();
-//				newCell.setState(newState);
-//				nextField.replace(cell, newCell);
-//			}
-//		}
-		
-//		this.field = this.nextField;
-		
-		
-		Field nextField = rule.calculateNextField(field);
+		boolean changed = false;		
+		F nextField = rule.calculateNextField(field);
 		changed = !nextField.equals(field);
 		this.field = nextField;
 		return changed;
@@ -56,7 +38,6 @@ public class Game {
 	}
 	
 	public void reset() {
-//		this.field.clear();
 		init();
 	}
 	

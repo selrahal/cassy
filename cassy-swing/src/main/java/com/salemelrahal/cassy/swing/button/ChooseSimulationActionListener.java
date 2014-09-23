@@ -4,27 +4,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 
 import com.salemelrahal.cassy.simulation.Simulation;
+import com.salemelrahal.cassy.swing.canvas.DisplayGrid;
 import com.salemelrahal.cassy.swing.conatiner.SimulationContainer;
 import com.salemelrahal.gol.simulation.impl.SimulationRegistry;
 
 public class ChooseSimulationActionListener implements ActionListener{
-	private SimulationContainer simulationContainer;
-	private JComponent field;
+	private DisplayGrid displayGrid;
 	
-	public ChooseSimulationActionListener(SimulationContainer simulationContainer, JComponent field) {
-		this.simulationContainer = simulationContainer;
-		this.field = field;
+	public ChooseSimulationActionListener(DisplayGrid displayGrid) {
+		this.displayGrid =displayGrid;
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		JComboBox cb = (JComboBox)arg0.getSource();
+		JComboBox<String> cb = (JComboBox<String>)arg0.getSource();
         String simulationName = (String)cb.getSelectedItem();
         Simulation simulation = SimulationRegistry.get(simulationName);
-        this.simulationContainer.setSimulation(simulation);
-		field.repaint();
+        this.displayGrid.setSimulation(simulation);
 	}
 
 }
