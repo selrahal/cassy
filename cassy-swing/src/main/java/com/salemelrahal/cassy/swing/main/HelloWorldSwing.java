@@ -44,9 +44,6 @@
  */
 package com.salemelrahal.cassy.swing.main;
  
-/*
- * HelloWorldSwing.java requires no other files.
- */
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -60,15 +57,17 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 
-import com.salemelrahal.cassy.common.Grid;
-import com.salemelrahal.cassy.gol.seeds.Seeds;
-import com.salemelrahal.cassy.simulation.Simulation;
+import com.salemelrahal.cassy.gol.general.LifeSimulation;
+import com.salemelrahal.cassy.simulation.SimulationConfiguration;
+import com.salemelrahal.cassy.swing.button.ChooseScaleActionListener;
 import com.salemelrahal.cassy.swing.button.ChooseSimulationActionListener;
+import com.salemelrahal.cassy.swing.button.ChooseSizeActionListener;
 import com.salemelrahal.cassy.swing.button.StartGameActionListener;
 import com.salemelrahal.cassy.swing.canvas.DisplayGrid;
 import com.salemelrahal.cassy.swing.conatiner.SimulationContainer;
 import com.salemelrahal.cassy.swing.mouse.BinaryMouseAdapter;
-import com.salemelrahal.gol.game.impl.Game;
+import com.salemelrahal.cassy.swing.registry.ScaleListRegistry;
+import com.salemelrahal.cassy.swing.registry.SizeListRegistry;
 import com.salemelrahal.gol.simulation.impl.SimulationRegistry;
  
 public class HelloWorldSwing {
@@ -81,7 +80,7 @@ public class HelloWorldSwing {
     	
     	int canvasHeight = 200;
     	int canvasWidth = 200;
-    	Simulation simulation = new Seeds();
+    	SimulationConfiguration simulation = new LifeSimulation("1357", "1357");
     	SimulationContainer simulationContainer = new SimulationContainer(simulation);
     	DisplayGrid displayGrid = new DisplayGrid(canvasHeight, canvasWidth, simulationContainer);
     	displayGrid.addMouseListener(new BinaryMouseAdapter(displayGrid));
@@ -108,6 +107,12 @@ public class HelloWorldSwing {
         
         JComboBox simulationList = new JComboBox(SimulationRegistry.getSimulations().toArray());
         simulationList.addActionListener(new ChooseSimulationActionListener(displayGrid));
+        
+        JComboBox sizeList = new JComboBox(SizeListRegistry.getSizes().toArray());
+        sizeList.addActionListener(new ChooseSizeActionListener(displayGrid));
+        
+        JComboBox scaleList = new JComboBox(ScaleListRegistry.getScales().toArray());
+        scaleList.addActionListener(new ChooseScaleActionListener(displayGrid));
     	
     	
     	JPanel buttons = new JPanel();
@@ -138,12 +143,14 @@ public class HelloWorldSwing {
         buttons.add(clear);
         buttons.add(slider);
         buttons.add(simulationList);
+        buttons.add(sizeList);
+        buttons.add(scaleList);
         frame.add(buttons);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         
         //Display the window.
-        frame.pack();
+//        frame.pack();
         frame.setVisible(true);
         System.out.println("DONE?");
     }

@@ -1,8 +1,8 @@
 package com.salemelrahal.gol.simulation.impl;
 
+import com.salemelrahal.cassy.common.field.grid.GridFactory;
 import com.salemelrahal.cassy.gol.ClassicRule;
 import com.salemelrahal.cassy.gol.GridInitializer;
-import com.salemelrahal.gol.factory.impl.GridFactory;
 import com.salemelrahal.gol.game.impl.Game;
 
 public class Runner {

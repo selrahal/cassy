@@ -3,12 +3,12 @@ package com.salemelrahal.cassy.swing.mouse;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import com.salemelrahal.cassy.swing.canvas.DisplayGrid;
+import com.salemelrahal.cassy.swing.canvas.DisplayField;
 
 public class BinaryMouseAdapter extends MouseAdapter{
-	private DisplayGrid displayGrid;
+	private DisplayField displayGrid;
 	
-	public BinaryMouseAdapter(DisplayGrid displayGrid) {
+	public BinaryMouseAdapter(DisplayField displayGrid) {
 		this.displayGrid = displayGrid;
 	}
 	

@@ -2,14 +2,13 @@ package com.salemelrahal.cassy.wireworld;
 
 import java.util.Collection;
 
-import com.salemelrahal.cassy.common.Grid;
+import com.salemelrahal.cassy.common.field.grid.Grid;
 import com.salemelrahal.cassy.init.Initializer;
-import com.salemelrahal.cassy.model.Field;
-import com.salemelrahal.cassy.model.State;
+import com.salemelrahal.cassy.model.field.FieldFactory;
 import com.salemelrahal.cassy.rule.Rule;
-import com.salemelrahal.cassy.simulation.Simulation;
+import com.salemelrahal.cassy.simulation.SimulationConfiguration;
 
-public class WireWorld implements Simulation<WireState, Grid>{
+public class WireWorld implements SimulationConfiguration<WireState, Grid>{
 
 	public Rule<WireState, Grid> getRule() {
 		return new WireRule();
@@ -19,13 +18,12 @@ public class WireWorld implements Simulation<WireState, Grid>{
 		return new WireGridInitializer();
 	}
 
-	public Field getField() {
-		//TODO: Implement
+	public Collection<WireState> getStates() {
 		return null;
 	}
 
-	public Collection<WireState> getStates() {
-		//TODO: Implement
+	public FieldFactory<Grid> getFieldFactory() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

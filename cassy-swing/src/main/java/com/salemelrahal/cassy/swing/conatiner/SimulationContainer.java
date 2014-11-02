@@ -1,24 +1,29 @@
 package com.salemelrahal.cassy.swing.conatiner;
 
-import com.salemelrahal.cassy.common.Grid;
-import com.salemelrahal.cassy.model.Field;
+import com.salemelrahal.cassy.init.Initializer;
 import com.salemelrahal.cassy.model.State;
-import com.salemelrahal.cassy.simulation.Simulation;
+import com.salemelrahal.cassy.model.field.Field;
+import com.salemelrahal.cassy.model.field.FieldFactory;
+import com.salemelrahal.cassy.rule.Rule;
+import com.salemelrahal.cassy.simulation.SimulationConfiguration;
 import com.salemelrahal.gol.game.impl.Game;
 
 public class SimulationContainer {
 	private Game game;
-	private Simulation simulation;
+	private FieldFactory fieldFactory;
+	private Rule rule;
+	private Initializer initializer;
 
-	public SimulationContainer(Simulation simulation) {
+	public SimulationContainer(SimulationConfiguration simulation) {
 		super();
 		this.setSimulation(simulation);
 	}
 
-	public void setSimulation(Simulation simulation) {
-		this.simulation = simulation;
-		this.game = new Game<Field, State>(new Grid(100,100), simulation.getRule(),simulation.getInitializer());
-		this.game.reset();
+	public void setSimulation(SimulationConfiguration simulation) {
+		this.rule = simulation.getRule();
+		this.initializer = simulation.getInitializer();
+		this.fieldFactory = simulation.getFieldFactory();
+		_reset();
 	}
 	
 	public void click(int x, int y) {
@@ -30,7 +35,7 @@ public class SimulationContainer {
 	}
 	
 	public void reset() {
-		this.game.reset();
+		_reset();
 	}
 	
 	public boolean iterate() {
@@ -39,6 +44,16 @@ public class SimulationContainer {
 	
 	public Field getField() {
 		return game.getField();
+	}
+
+	public void setFieldFactory(FieldFactory fieldFactory) {
+		this.fieldFactory = fieldFactory;
+		_reset();
+	}
+	
+	private void _reset() {
+		this.game = new Game<Field, State>(fieldFactory.next(), rule, initializer);
+		this.game.reset();
 	}
 
 }

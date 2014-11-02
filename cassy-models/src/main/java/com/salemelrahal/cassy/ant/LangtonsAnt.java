@@ -2,14 +2,12 @@ package com.salemelrahal.cassy.ant;
 
 import java.util.Collection;
 
-import com.salemelrahal.cassy.common.Grid;
+import com.salemelrahal.cassy.common.field.grid.Grid;
 import com.salemelrahal.cassy.init.Initializer;
-import com.salemelrahal.cassy.model.Field;
-import com.salemelrahal.cassy.model.State;
 import com.salemelrahal.cassy.rule.Rule;
-import com.salemelrahal.cassy.simulation.Simulation;
+import com.salemelrahal.cassy.simulation.SimulationConfiguration;
 
-public class LangtonsAnt implements Simulation<AntState, Grid>{
+public class LangtonsAnt implements SimulationConfiguration<AntState, Grid>{
 
 	public Rule<AntState, Grid> getRule() {
 		return new AntRule();

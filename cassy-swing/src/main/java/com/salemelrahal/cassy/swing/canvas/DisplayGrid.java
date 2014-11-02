@@ -11,37 +11,39 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
-import javax.swing.JPanel;
 
 import com.salemelrahal.cassy.ant.AntState;
-import com.salemelrahal.cassy.common.Grid;
-import com.salemelrahal.cassy.common.GridCellContainer;
+import com.salemelrahal.cassy.common.field.grid.Grid;
+import com.salemelrahal.cassy.common.field.grid.GridCellContainer;
+import com.salemelrahal.cassy.common.field.grid.GridFactory;
 import com.salemelrahal.cassy.gol.LifeState;
 import com.salemelrahal.cassy.model.State;
-import com.salemelrahal.cassy.simulation.Simulation;
 import com.salemelrahal.cassy.swing.conatiner.SimulationContainer;
 import com.salemelrahal.cassy.wireworld.WireState;
 
-public class DisplayGrid extends JPanel{
+public class DisplayGrid extends SimulationContainerDisplay implements DisplayField{
 	private static final long serialVersionUID = 2697245729821535302L;
 	private int offset = 5;;
 	private int canvasHeight;
 	private int canvasWidth;
-	private SimulationContainer simulationContainer;
 	
-    
 	public DisplayGrid(int canvasHeight, int canvasWidth, SimulationContainer simulationContainer) {
-		super();
+		super(simulationContainer);
 		this.canvasHeight = canvasHeight;
 		this.canvasWidth = canvasWidth;
-		this.simulationContainer = simulationContainer;
         setBorder(BorderFactory.createLineBorder(Color.black));
     }
 	
+    /* (non-Javadoc)
+	 * @see com.salemelrahal.cassy.swing.canvas.DisplayField#getPreferredSize()
+	 */
     public Dimension getPreferredSize() {
     	return new Dimension(canvasHeight, canvasWidth);
     }
 
+    /* (non-Javadoc)
+	 * @see com.salemelrahal.cassy.swing.canvas.DisplayField#paintComponent(java.awt.Graphics)
+	 */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);       
         this.drawCells(g);
@@ -93,20 +95,18 @@ public class DisplayGrid extends JPanel{
 	public int getOffset() {
 		return offset;
 	}
-	
-	public void addMouseListener(MouseListener listener) {
-		super.addMouseListener(listener);
-	}
-	
-	public void addMouseMotionListener(MouseMotionListener listener) {
-		super.addMouseMotionListener(listener);
-	}
 
+	/* (non-Javadoc)
+	 * @see com.salemelrahal.cassy.swing.canvas.DisplayField#click(int, int)
+	 */
 	public void click(int x, int y) {
 		simulationContainer.click(x/offset, y/offset);
 		this.repaintCell(x, y);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.salemelrahal.cassy.swing.canvas.DisplayField#drag(int, int)
+	 */
 	public void drag(int x, int y) {
 		simulationContainer.drag(x/offset, y/offset);
 		this.repaintCell(x, y);
@@ -118,8 +118,25 @@ public class DisplayGrid extends JPanel{
 		this.repaint(cellx*offset, celly*offset, offset, offset);
 	}
 
-	public void setSimulation(Simulation simulation) {
-		simulationContainer.setSimulation(simulation);
+	/* (non-Javadoc)
+	 * @see com.salemelrahal.cassy.swing.canvas.DisplayField#setScale(int)
+	 */
+	public void setScale(int i) {
+		offset = i;
+		this.repaint();
+	}
+
+	/* (non-Javadoc)
+	 * @see com.salemelrahal.cassy.swing.canvas.DisplayField#setSize(int)
+	 */
+	public void setSize(int i) {
+		Dimension size = new Dimension(i,i);
+		this.resize(i, i);
+		this.setMaximumSize(size);
+		this.setMinimumSize(size);
+		canvasHeight = i;
+		canvasWidth = i;
+		this.simulationContainer.setFieldFactory(new GridFactory(i, i));
 		this.repaint();
 	}
 }

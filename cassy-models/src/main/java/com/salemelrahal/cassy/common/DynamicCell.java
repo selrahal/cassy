@@ -1,6 +1,5 @@
 package com.salemelrahal.cassy.common;
 
-import com.salemelrahal.cassy.gol.LifeState;
 import com.salemelrahal.cassy.model.Cell;
 import com.salemelrahal.cassy.model.State;
 

@@ -1,7 +1,7 @@
 package com.salemelrahal.cassy.gol.general;
 
 import com.salemelrahal.cassy.common.DynamicCell;
-import com.salemelrahal.cassy.common.Grid;
+import com.salemelrahal.cassy.common.field.grid.Grid;
 import com.salemelrahal.cassy.gol.LifeState;
 import com.salemelrahal.cassy.model.Cell;
 import com.salemelrahal.cassy.model.State;

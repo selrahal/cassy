@@ -1,6 +1,6 @@
 package com.salemelrahal.cassy.init;
 
-import com.salemelrahal.cassy.model.Field;
+import com.salemelrahal.cassy.model.field.Field;
 
 public interface Initializer<F extends Field> {
 	public void initialize(F field);

@@ -1,7 +1,7 @@
 package com.salemelrahal.cassy.wireworld;
 
 import com.salemelrahal.cassy.common.DynamicCell;
-import com.salemelrahal.cassy.common.Grid;
+import com.salemelrahal.cassy.common.field.grid.Grid;
 import com.salemelrahal.cassy.init.Initializer;
 import com.salemelrahal.cassy.model.Cell;
 

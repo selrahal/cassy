@@ -1,15 +1,17 @@
-package com.salemelrahal.cassy.common;
+package com.salemelrahal.cassy.common.field.grid;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.salemelrahal.cassy.common.DynamicCell;
 import com.salemelrahal.cassy.model.Cell;
-import com.salemelrahal.cassy.model.Field;
 import com.salemelrahal.cassy.model.State;
+import com.salemelrahal.cassy.model.field.Field;
+import com.salemelrahal.cassy.model.field.Node;
 
-public class Grid implements Field{
-	private List<List<Cell>> cells;
+public class Grid implements Field<GridCellContainer>{
+	private List<List<GridCellContainer>> cells;
 	private int width;
 	private int height;
 	
@@ -18,10 +20,10 @@ public class Grid implements Field{
 		this.height = height;
 	}
 	
-	private Cell getSafe(int row, int column) {
-		Cell toReturn = null;
+	private GridCellContainer getSafe(int x, int y) {
+		GridCellContainer toReturn = null;
 		try {
-			toReturn = cells.get(row).get(column);
+			toReturn = cells.get(y).get(x);
 		} catch (Exception e) {
 			
 		}
@@ -30,7 +32,7 @@ public class Grid implements Field{
 
 	public void set(DynamicCell newCell, int row, int column) {
 		try {
-			cells.get(row).set(column, newCell);
+			cells.get(row).set(column, new GridCellContainer(newCell, column, row));
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -38,12 +40,11 @@ public class Grid implements Field{
 	
 	public Grid clone() {
 		Grid toReturn = new Grid(this.width, this.height);
-		toReturn.cells = new ArrayList<List<Cell>>(height);
+		toReturn.cells = new ArrayList<List<GridCellContainer>>(height);
 		for (int row = 0; row < this.height; row++) {
-			toReturn.cells.add(new ArrayList<Cell>(width));
+			toReturn.cells.add(new ArrayList<GridCellContainer>(width));
 			for (int column = 0; column < this.width; column++) {
-				Cell cell = this.cells.get(row).get(column);
-				toReturn.cells.get(row).add(cell);
+				toReturn.cells.get(row).add(this.cells.get(row).get(column).clone());
 			}
 		}
 		return toReturn;
@@ -52,29 +53,32 @@ public class Grid implements Field{
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("--------------------------------\n");
-		for (List<Cell> row : cells) {
+		for (List<GridCellContainer> row : cells) {
 			sb.append("|");
-			for (Cell cell : row) {
-				sb.append(cell.getState() + "|");
+			for (GridCellContainer container : row) {
+				sb.append(container.getState() + "|");
 			}
 			sb.append("\n");
 		}
 		return sb.toString();
 	}
 
-	public Collection<Cell> getCells() {
-		Collection<Cell> toReturn = new ArrayList<Cell>(height * width);
-		for (List<Cell> row : this.cells){
+	public Collection<GridCellContainer> getNodes() {
+		Collection<GridCellContainer> toReturn = new ArrayList<GridCellContainer>(height * width);
+		for (List<GridCellContainer> row : this.cells){
 			toReturn.addAll(row);
 		}
 		return toReturn;
 	}
+	
 
-	public Collection<Cell> getNeighbors(int row, int column) {
-		Collection<Cell> neighbors = new ArrayList<Cell>();
+	public Collection<GridCellContainer> getNeighbors(GridCellContainer container) {
+		Collection<GridCellContainer> neighbors = new ArrayList<GridCellContainer>();
 		for (int i = -1 ; i < 2 ; i++) {
 			for (int j = -1; j < 2; j++) {
-				Cell toAdd = this.getSafe(row + i, column + j);
+				int x = container.getX() + j;
+				int y = container.getY() + i;
+				GridCellContainer toAdd = this.getSafe(x,y);
 				if (toAdd != null) {
 					if (i != 0 || j!= 0) {
 						neighbors.add(toAdd);
@@ -83,10 +87,6 @@ public class Grid implements Field{
 			}
 		}
 		return neighbors;
-	}
-	
-	private class Coordinate {
-		int row,column;
 	}
 	
 	public int getHeight() {
@@ -101,17 +101,17 @@ public class Grid implements Field{
 		List<GridCellContainer> toReturn = new ArrayList<GridCellContainer>();
 		for (int row = 0; row < this.height; row++) {
 			for (int column = 0; column < this.width; column++) {
-				Cell cell = this.cells.get(row).get(column);
-				if (cell.getState().equals(state)) {
-					toReturn.add(new GridCellContainer(cell, column, row));
+				GridCellContainer container = this.cells.get(row).get(column);
+				if (container.getState().equals(state)) {
+					toReturn.add(container.clone());
 				}
 			}
 		}
 		return toReturn;
 	}
 	
-	public Cell getCell(int x, int y){
-		return this.getSafe(y, x);
+	private Cell getCell(int x, int y){
+		return this.getSafe(x, y).getCell();
 	}
 	
 	public boolean equals(Object object) {
@@ -129,11 +129,11 @@ public class Grid implements Field{
 	}
 
 	public void fillCells(DynamicCell dynamicCell) {
-		cells = new ArrayList<List<Cell>>(height);
+		cells = new ArrayList<List<GridCellContainer>>(height);
 		for (int i = 0 ; i < height ; i++) {
-			cells.add(new ArrayList<Cell>(width));
+			cells.add(new ArrayList<GridCellContainer>(width));
 			for (int j = 0; j < width; j++) {
-				cells.get(i).add(dynamicCell.clone());
+				cells.get(i).add(new GridCellContainer(dynamicCell.clone(), j, i));
 			}
 		}
 	}

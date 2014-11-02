@@ -1,8 +1,8 @@
 package com.salemelrahal.gol.game.impl;
 
 import com.salemelrahal.cassy.init.Initializer;
-import com.salemelrahal.cassy.model.Field;
 import com.salemelrahal.cassy.model.State;
+import com.salemelrahal.cassy.model.field.Field;
 import com.salemelrahal.cassy.rule.Rule;
 
 public class Game<F extends Field, S extends State> {
@@ -51,5 +51,9 @@ public class Game<F extends Field, S extends State> {
 
 	public void drag(int x, int y) {
 		initializer.drag(field, x, y);
+	}
+
+	public void setField(F field ) {
+		this.field = field;
 	}
 }

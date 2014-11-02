@@ -6,19 +6,19 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 
 import com.salemelrahal.cassy.swing.canvas.DisplayField;
-import com.salemelrahal.gol.simulation.impl.SimulationRegistry;
+import com.salemelrahal.cassy.swing.registry.ScaleListRegistry;
 
-public class ChooseSimulationActionListener implements ActionListener{
+public class ChooseScaleActionListener implements ActionListener{
 	private DisplayField displayGrid;
 	
-	public ChooseSimulationActionListener(DisplayField displayGrid) {
+	public ChooseScaleActionListener(DisplayField displayGrid) {
 		this.displayGrid =displayGrid;
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
 		JComboBox<String> cb = (JComboBox<String>)arg0.getSource();
-        String simulationName = (String)cb.getSelectedItem();
-        this.displayGrid.setSimulation(SimulationRegistry.get(simulationName));
+        String scaleName = (String)cb.getSelectedItem();
+        this.displayGrid.setScale(ScaleListRegistry.get(scaleName));
 	}
 
 }
