@@ -1,8 +1,7 @@
 package com.salemelrahal.cassy.model;
 
-public interface Cell {
-	public State getState();
-	public void setState(State state);
-	public boolean shouldChange(State state);
-	public Cell clone();
+public interface Cell<S extends State> {
+	public S getState();
+	public void setState(S state);
+	public Cell<S> clone();
 }

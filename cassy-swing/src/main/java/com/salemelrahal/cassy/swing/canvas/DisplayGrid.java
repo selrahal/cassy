@@ -53,7 +53,7 @@ public class DisplayGrid extends SimulationContainerDisplay implements DisplayFi
     private void drawCells(Graphics g) {
     	for (Entry<State, Color> entry : getColorMap().entrySet()) {
     		g.setColor(entry.getValue());
-    		List<GridCellContainer> aliveCells = ((Grid)simulationContainer.getField()).getCellsByState(entry.getKey());
+    		List<GridCellContainer<?>> aliveCells = ((Grid)simulationContainer.getField()).getCellsByState(entry.getKey());
     		for (GridCellContainer container : aliveCells) {
 	    		g.fillRect(container.getX() * offset, container.getY() * offset, offset, offset);
 	    	}

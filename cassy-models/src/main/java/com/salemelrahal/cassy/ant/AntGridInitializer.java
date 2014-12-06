@@ -2,8 +2,8 @@ package com.salemelrahal.cassy.ant;
 
 import com.salemelrahal.cassy.common.DynamicCell;
 import com.salemelrahal.cassy.common.field.grid.Grid;
+import com.salemelrahal.cassy.common.field.grid.GridCellContainer;
 import com.salemelrahal.cassy.init.Initializer;
-import com.salemelrahal.cassy.model.Cell;
 
 public class AntGridInitializer implements Initializer<Grid>{
 
@@ -12,15 +12,15 @@ public class AntGridInitializer implements Initializer<Grid>{
 	}
 
 	public void click(Grid grid, int x, int y) {
-		Cell cell = grid.getCell(x, y);
-		AntState state = (AntState)cell.getState();
+		GridCellContainer<AntState> gridCellContainer = (GridCellContainer<AntState>) grid.getGridCellContainer(x, y);
+		AntState state = (AntState) gridCellContainer.getState();
 		System.out.println(state + " x:" + x + " y:" + y);
 		if (!state.getAntFacing().equals(AntState.Direction.NONE)) {
-			cell.setState(new AntState(AntState.Color.BLACK, AntState.Direction.NONE));
+			gridCellContainer.setState(new AntState(AntState.Color.BLACK, AntState.Direction.NONE));
 		} else if (state.getColor().equals(AntState.Color.BLACK)) {
-			cell.setState(new AntState(AntState.Color.WHITE, AntState.Direction.NONE));
+			gridCellContainer.setState(new AntState(AntState.Color.WHITE, AntState.Direction.NONE));
 		} else if (state.getColor().equals(AntState.Color.WHITE)) {
-			cell.setState(new AntState(AntState.Color.WHITE, AntState.Direction.LEFT));
+			gridCellContainer.setState(new AntState(AntState.Color.WHITE, AntState.Direction.LEFT));
 		}
 	}
 
@@ -30,6 +30,6 @@ public class AntGridInitializer implements Initializer<Grid>{
 	}
 
 	public void drag(Grid grid, int x, int y) {
-		grid.getCell(x, y).setState(new AntState(AntState.Color.WHITE, AntState.Direction.LEFT));
+		((GridCellContainer<AntState>)grid.getGridCellContainer(x, y)).setState(new AntState(AntState.Color.WHITE, AntState.Direction.LEFT));
 	}
 }

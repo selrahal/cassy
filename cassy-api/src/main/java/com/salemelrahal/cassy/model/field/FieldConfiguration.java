@@ -1,5 +1,5 @@
 package com.salemelrahal.cassy.model.field;
 
-public interface FieldConfiguration {
-	public Field getField();
+public interface FieldConfiguration<F extends Field<?>> {
+	public F getField();
 }

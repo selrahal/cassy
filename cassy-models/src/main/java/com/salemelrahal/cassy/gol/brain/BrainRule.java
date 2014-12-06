@@ -2,15 +2,15 @@ package com.salemelrahal.cassy.gol.brain;
 
 import com.salemelrahal.cassy.common.DynamicCell;
 import com.salemelrahal.cassy.common.field.grid.Grid;
+import com.salemelrahal.cassy.common.field.grid.GridCellContainer;
 import com.salemelrahal.cassy.gol.LifeState;
-import com.salemelrahal.cassy.model.Cell;
 import com.salemelrahal.cassy.model.State;
 import com.salemelrahal.cassy.rule.Rule;
 
 public class BrainRule implements Rule<LifeState, Grid>{
-	public State calculateNextState(Cell cell, int row, int column, Grid field) {
+	public State calculateNextState(GridCellContainer cell, int row, int column, Grid field) {
 		int aliveNeighbors = 0;
-		for (Cell neighbor : field.getNeighbors(row, column)) {
+		for (GridCellContainer neighbor : field.getNeighbors(cell)) {
 			if (neighbor.getState().equals(LifeState.ALIVE)) {
 				aliveNeighbors++;
 			}
@@ -36,12 +36,10 @@ public class BrainRule implements Rule<LifeState, Grid>{
 		
 		for (int x = 0 ; x < grid.getWidth(); x++) {
 			for (int y = 0; y < grid.getHeight(); y++) {
-				Cell cell = grid.getCell(x, y);
+				GridCellContainer cell = grid.getGridCellContainer(x, y);
 				State newState = this.calculateNextState(cell, y, x, grid);
-				if (cell.shouldChange(newState)) {
-					DynamicCell newCell = new DynamicCell(newState);
-					nextField.set(newCell, y, x);
-				}
+				DynamicCell newCell = new DynamicCell(newState);
+				nextField.set(newCell, y, x);
 			}
 		}
 

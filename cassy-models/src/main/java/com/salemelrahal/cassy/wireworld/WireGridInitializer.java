@@ -2,8 +2,8 @@ package com.salemelrahal.cassy.wireworld;
 
 import com.salemelrahal.cassy.common.DynamicCell;
 import com.salemelrahal.cassy.common.field.grid.Grid;
+import com.salemelrahal.cassy.common.field.grid.GridCellContainer;
 import com.salemelrahal.cassy.init.Initializer;
-import com.salemelrahal.cassy.model.Cell;
 
 public class WireGridInitializer implements Initializer<Grid>{
 
@@ -12,7 +12,7 @@ public class WireGridInitializer implements Initializer<Grid>{
 	}
 
 	public void click(Grid grid, int x, int y) {
-		Cell cell = grid.getCell(x, y);
+		GridCellContainer cell = grid.getGridCellContainer(x, y);
 		WireState state = (WireState)cell.getState();
 		if (state.equals(WireState.EMTPY)) {
 			cell.setState(WireState.WIRE);
@@ -31,6 +31,6 @@ public class WireGridInitializer implements Initializer<Grid>{
 	}
 
 	public void drag(Grid grid, int x, int y) {
-		grid.getCell(x, y).setState(WireState.WIRE);
+		((GridCellContainer<WireState>)grid.getGridCellContainer(x, y)).setState(WireState.WIRE);
 	}
 }

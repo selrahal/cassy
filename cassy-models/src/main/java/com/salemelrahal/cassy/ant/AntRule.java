@@ -2,7 +2,7 @@ package com.salemelrahal.cassy.ant;
 
 import com.salemelrahal.cassy.common.DynamicCell;
 import com.salemelrahal.cassy.common.field.grid.Grid;
-import com.salemelrahal.cassy.model.Cell;
+import com.salemelrahal.cassy.common.field.grid.GridCellContainer;
 import com.salemelrahal.cassy.rule.Rule;
 
 public class AntRule implements Rule<AntState, Grid>{	
@@ -18,7 +18,7 @@ public class AntRule implements Rule<AntState, Grid>{
 			for (int y = 0; y < grid.getHeight(); y++) {
 				AntState.Color newColor = null;
 				AntState.Direction newDirection = null;
-				Cell oldCell = grid.getCell(x, y);
+				GridCellContainer oldCell = grid.getGridCellContainer(x, y);
 				AntState oldState = (AntState) oldCell.getState();
 				if (!oldState.getAntFacing().equals(AntState.Direction.NONE)){
 					//Found the ant! Flip the color and move!
@@ -32,10 +32,10 @@ public class AntRule implements Rule<AntState, Grid>{
 					newDirection = AntState.Direction.NONE;
 				} else {
 					//No ant, if we are waiting to find ant lets check our neighbors
-						Cell up = grid.getCell(x, y - 1);
-						Cell down = grid.getCell(x, y+1);
-						Cell left = grid.getCell(x-1, y);
-						Cell right = grid.getCell(x + 1, y);
+					GridCellContainer up = grid.getGridCellContainer(x, y - 1);
+					GridCellContainer down = grid.getGridCellContainer(x, y + 1);
+					GridCellContainer left = grid.getGridCellContainer(x - 1, y);
+					GridCellContainer right = grid.getGridCellContainer(x + 1, y);
 						if ((isRight(up) && isWhite(up)) || (isLeft(up) && isBlack(up))){
 							newDirection = AntState.Direction.DOWN;
 						} else if ((isUp(left) && isWhite(left)) || (isDown(left) && isBlack(left))) {
@@ -63,27 +63,27 @@ public class AntRule implements Rule<AntState, Grid>{
 	}
 	
 	
-	private boolean isUp(Cell cell) {
+	private boolean isUp(GridCellContainer cell) {
 		return (cell != null && ((AntState)cell.getState()).getAntFacing().equals(AntState.Direction.UP));
 	}
 	
-	private boolean isDown(Cell cell) {
+	private boolean isDown(GridCellContainer cell) {
 		return (cell != null && ((AntState)cell.getState()).getAntFacing().equals(AntState.Direction.DOWN));
 	}
 	
-	private boolean isLeft(Cell cell) {
+	private boolean isLeft(GridCellContainer cell) {
 		return (cell != null && ((AntState)cell.getState()).getAntFacing().equals(AntState.Direction.LEFT));
 	}
 	
-	private boolean isRight(Cell cell) {	
+	private boolean isRight(GridCellContainer cell) {	
 		return (cell != null && ((AntState)cell.getState()).getAntFacing().equals(AntState.Direction.RIGHT));
 	}
 	
-	private boolean isWhite(Cell cell) {
+	private boolean isWhite(GridCellContainer cell) {
 		return (cell != null && ((AntState)cell.getState()).getColor().equals(AntState.Color.WHITE));
 	}
 	
-	private boolean isBlack(Cell cell) {
+	private boolean isBlack(GridCellContainer cell) {
 		return (cell != null && ((AntState)cell.getState()).getColor().equals(AntState.Color.BLACK));
 	}
 }

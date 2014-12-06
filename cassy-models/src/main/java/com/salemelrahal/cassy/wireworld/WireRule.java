@@ -2,7 +2,7 @@ package com.salemelrahal.cassy.wireworld;
 
 import com.salemelrahal.cassy.common.DynamicCell;
 import com.salemelrahal.cassy.common.field.grid.Grid;
-import com.salemelrahal.cassy.model.Cell;
+import com.salemelrahal.cassy.common.field.grid.GridCellContainer;
 import com.salemelrahal.cassy.rule.Rule;
 
 public class WireRule implements Rule<WireState, Grid>{	
@@ -17,10 +17,10 @@ public class WireRule implements Rule<WireState, Grid>{
 		for (int x = 0 ; x < grid.getWidth(); x++) {
 			for (int y = 0; y < grid.getHeight(); y++) {
 				WireState newState = null;
-				Cell oldCell = grid.getCell(x, y);
+				GridCellContainer oldCell = grid.getGridCellContainer(x, y);
 				WireState oldState = (WireState) oldCell.getState();
 				int aliveNeighbors = 0;
-				for (Cell neighbor : grid.getNeighbors(y, x)) {
+				for (GridCellContainer neighbor : grid.getNeighbors(oldCell)) {
 					if (neighbor.getState().equals(WireState.HEAD)) {
 						aliveNeighbors++;
 					}

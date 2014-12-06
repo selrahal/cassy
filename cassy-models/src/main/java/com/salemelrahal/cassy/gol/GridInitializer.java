@@ -4,8 +4,8 @@ import java.util.Random;
 
 import com.salemelrahal.cassy.common.DynamicCell;
 import com.salemelrahal.cassy.common.field.grid.Grid;
+import com.salemelrahal.cassy.common.field.grid.GridCellContainer;
 import com.salemelrahal.cassy.init.Initializer;
-import com.salemelrahal.cassy.model.Cell;
 
 public class GridInitializer implements Initializer<Grid>{
 	
@@ -25,7 +25,7 @@ public class GridInitializer implements Initializer<Grid>{
 	}
 
 	public void click(Grid grid, int x, int y) {
-		Cell cell = grid.getCell(x, y);
+		GridCellContainer cell = grid.getGridCellContainer(x, y);
 		LifeState state = (LifeState)cell.getState();
 		if (state.equals(LifeState.ALIVE)) {
 			cell.setState(LifeState.DEAD);
@@ -35,6 +35,6 @@ public class GridInitializer implements Initializer<Grid>{
 	}
 
 	public void drag(Grid grid, int x, int y) {
-		grid.getCell(x, y).setState(LifeState.ALIVE);
+		((GridCellContainer<LifeState>)grid.getGridCellContainer(x, y)).setState(LifeState.ALIVE);
 	}
 }

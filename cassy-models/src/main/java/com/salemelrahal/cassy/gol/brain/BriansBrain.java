@@ -3,6 +3,7 @@ package com.salemelrahal.cassy.gol.brain;
 import java.util.Collection;
 
 import com.salemelrahal.cassy.common.field.grid.Grid;
+import com.salemelrahal.cassy.common.field.grid.GridFactory;
 import com.salemelrahal.cassy.gol.GridInitializer;
 import com.salemelrahal.cassy.gol.LifeState;
 import com.salemelrahal.cassy.init.Initializer;
@@ -26,8 +27,7 @@ public class BriansBrain implements SimulationConfiguration<LifeState, Grid> {
 	}
 
 	public FieldFactory<Grid> getFieldFactory() {
-		// TODO Auto-generated method stub
-		return null;
+		return new GridFactory(100, 100);
 	}
 
 }

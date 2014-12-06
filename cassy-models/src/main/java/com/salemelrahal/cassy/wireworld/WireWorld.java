@@ -3,6 +3,7 @@ package com.salemelrahal.cassy.wireworld;
 import java.util.Collection;
 
 import com.salemelrahal.cassy.common.field.grid.Grid;
+import com.salemelrahal.cassy.common.field.grid.GridFactory;
 import com.salemelrahal.cassy.init.Initializer;
 import com.salemelrahal.cassy.model.field.FieldFactory;
 import com.salemelrahal.cassy.rule.Rule;
@@ -23,8 +24,7 @@ public class WireWorld implements SimulationConfiguration<WireState, Grid>{
 	}
 
 	public FieldFactory<Grid> getFieldFactory() {
-		// TODO Auto-generated method stub
-		return null;
+		return new GridFactory(100, 100);
 	}
 
 }

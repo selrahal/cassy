@@ -3,7 +3,7 @@ package com.salemelrahal.cassy.common;
 import com.salemelrahal.cassy.model.Cell;
 import com.salemelrahal.cassy.model.State;
 
-public class DynamicCell implements Cell{
+public class DynamicCell implements Cell<State>{
 	private State state;
 	
 	public DynamicCell(State state){

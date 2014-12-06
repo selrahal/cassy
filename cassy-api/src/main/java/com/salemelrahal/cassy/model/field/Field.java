@@ -4,5 +4,5 @@ import java.util.Collection;
 
 public interface Field<N extends Node> {
 	public Collection<N> getNodes();
-	public Field clone();
+	public Field<N> clone();
 }

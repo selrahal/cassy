@@ -3,6 +3,7 @@ package com.salemelrahal.gol.game.impl;
 import com.salemelrahal.cassy.init.Initializer;
 import com.salemelrahal.cassy.model.State;
 import com.salemelrahal.cassy.model.field.Field;
+import com.salemelrahal.cassy.model.field.Node;
 import com.salemelrahal.cassy.rule.Rule;
 
 public class Game<F extends Field, S extends State> {
@@ -33,7 +34,7 @@ public class Game<F extends Field, S extends State> {
 		initializer.initialize(field);
 	}
 	
-	public Field getField(){
+	public F getField(){
 		return this.field;
 	}
 	

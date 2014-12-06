@@ -16,7 +16,7 @@ public class Graph implements Field<GraphCellContainer>{
 		adjacenyMap = new HashMap<GraphCellContainer, List<GraphCellContainer>>();
 	}
 
-	public Field clone() {
+	public Field<GraphCellContainer> clone() {
 		Graph toReturn = new Graph();
 		for (Entry<GraphCellContainer, List<GraphCellContainer>> entry : adjacenyMap.entrySet()) {
 			List<GraphCellContainer> newList = new ArrayList<GraphCellContainer>();
