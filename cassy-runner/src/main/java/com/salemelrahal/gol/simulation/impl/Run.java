@@ -3,10 +3,10 @@ package com.salemelrahal.gol.simulation.impl;
 import com.salemelrahal.gol.game.impl.Game;
 
 public class Run {
-	private Game game;
+	private Game<?, ?> game;
 	private static final int MAX_RUNS = 1000;
 	
-	public Run(Game game) {
+	public Run(Game<?, ?> game) {
 		this.game = game;
 		game.randomize();
 	}

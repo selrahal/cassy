@@ -15,10 +15,10 @@ import com.salemelrahal.cassy.wireworld.WireWorld;
 
 public class SimulationRegistry {
 	
-	private static Map<String, SimulationConfiguration> simulationMap;
+	private static Map<String, SimulationConfiguration<?, ?>> simulationMap;
 	
 	static {
-		simulationMap = new ConcurrentHashMap<String, SimulationConfiguration>();
+		simulationMap = new ConcurrentHashMap<String, SimulationConfiguration<?,?>>();
 		simulationMap.put("Conway's Game of Life", new ConwaysGameOfLife());
 		simulationMap.put("WireWorld", new WireWorld());
 		simulationMap.put("Langton's Ant", new LangtonsAnt());
@@ -33,7 +33,7 @@ public class SimulationRegistry {
 		return new ArrayList<String>(simulationMap.keySet());
 	}
 	
-	public static SimulationConfiguration get(String name) {
+	public static SimulationConfiguration<?,?> get(String name) {
 		return simulationMap.get(name);
 	}
 

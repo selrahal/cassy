@@ -1,8 +1,10 @@
 package com.salemelrahal.gol.simulation.impl;
 
+import com.salemelrahal.cassy.common.field.grid.Grid;
 import com.salemelrahal.cassy.common.field.grid.GridFactory;
 import com.salemelrahal.cassy.gol.ClassicRule;
 import com.salemelrahal.cassy.gol.GridInitializer;
+import com.salemelrahal.cassy.gol.LifeState;
 import com.salemelrahal.gol.game.impl.Game;
 
 public class Runner {
@@ -17,7 +19,7 @@ public class Runner {
 			scores[i] = 0;
 		}
 		for (int i = 0; i < 10; i++) {
-			Game game = new Game(gridFactory.next(),new ClassicRule(), new GridInitializer());
+			Game<Grid, LifeState> game = new Game<Grid, LifeState>(gridFactory.next(),new ClassicRule(), new GridInitializer());
 			game.reset();
 			Run run = new Run(game);
 			int runs = run.runTillStale();
