@@ -3,10 +3,9 @@ package com.salemelrahal.gol.game.impl;
 import com.salemelrahal.cassy.init.Initializer;
 import com.salemelrahal.cassy.model.State;
 import com.salemelrahal.cassy.model.field.Field;
-import com.salemelrahal.cassy.model.field.Node;
 import com.salemelrahal.cassy.rule.Rule;
 
-public class Game<F extends Field, S extends State> {
+public class Game<F extends Field<?>, S extends State> {
 	private F field;
 	private Rule<S,F> rule;
 	private Initializer<F> initializer;

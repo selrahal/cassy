@@ -2,7 +2,7 @@ package com.salemelrahal.cassy.init;
 
 import com.salemelrahal.cassy.model.field.Field;
 
-public interface Initializer<F extends Field> {
+public interface Initializer<F extends Field<?>> {
 	public void initialize(F field);
 	public void randomize(F field);
 	public void click(F field, int x, int y);
