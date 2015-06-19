@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JComponent;
 import javax.swing.JSlider;
 
-import org.salemelrahal.gol.game.impl.Simulation;
+import org.salemelrahal.cassy.simulation.Simulation;
 
 public class StartGameActionListener implements ActionListener{
 	private Simulation game;

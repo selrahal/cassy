@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import org.salemelrahal.cassy.simulation.Run;
+import org.salemelrahal.cassy.simulation.Simulation;
 import org.salemelrahal.cassy.simulation.grid.GridFactory;
 import org.salemelrahal.cassy.simulation.impl.SimulationRegistry;
-import org.salemelrahal.gol.game.impl.Run;
-import org.salemelrahal.gol.game.impl.Simulation;
 
 public class Runner {
 	public static void main(String[] args) throws NumberFormatException, IOException {

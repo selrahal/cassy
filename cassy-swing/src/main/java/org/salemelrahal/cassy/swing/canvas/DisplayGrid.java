@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
 
+import org.salemelrahal.cassy.simulation.Simulation;
 import org.salemelrahal.cassy.simulation.cell.State;
 import org.salemelrahal.cassy.simulation.grid.Grid;
 import org.salemelrahal.cassy.simulation.grid.GridCellContainer;
@@ -17,7 +18,6 @@ import org.salemelrahal.cassy.simulation.grid.GridFactory;
 import org.salemelrahal.cassy.simulation.model.ant.AntState;
 import org.salemelrahal.cassy.simulation.model.gol.LifeState;
 import org.salemelrahal.cassy.simulation.model.wireworld.WireState;
-import org.salemelrahal.gol.game.impl.Simulation;
 
 public class DisplayGrid extends GameDisplay implements DisplayField{
 	private static final long serialVersionUID = 2697245729821535302L;
