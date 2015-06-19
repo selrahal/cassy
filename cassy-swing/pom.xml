@@ -10,13 +10,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.salemelrahal</groupId>
-			<artifactId>cassy-engine</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.salemelrahal</groupId>
-			<artifactId>cassy-models</artifactId>
+			<artifactId>cassy-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

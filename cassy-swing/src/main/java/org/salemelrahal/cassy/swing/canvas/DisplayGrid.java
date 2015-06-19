@@ -10,13 +10,13 @@ import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
 
-import org.salemelrahal.cassy.ant.AntState;
-import org.salemelrahal.cassy.common.field.grid.Grid;
-import org.salemelrahal.cassy.common.field.grid.GridCellContainer;
-import org.salemelrahal.cassy.common.field.grid.GridFactory;
-import org.salemelrahal.cassy.gol.LifeState;
-import org.salemelrahal.cassy.model.State;
-import org.salemelrahal.cassy.wireworld.WireState;
+import org.salemelrahal.cassy.simulation.cell.State;
+import org.salemelrahal.cassy.simulation.grid.Grid;
+import org.salemelrahal.cassy.simulation.grid.GridCellContainer;
+import org.salemelrahal.cassy.simulation.grid.GridFactory;
+import org.salemelrahal.cassy.simulation.model.ant.AntState;
+import org.salemelrahal.cassy.simulation.model.gol.LifeState;
+import org.salemelrahal.cassy.simulation.model.wireworld.WireState;
 import org.salemelrahal.gol.game.impl.Simulation;
 
 public class DisplayGrid extends GameDisplay implements DisplayField{

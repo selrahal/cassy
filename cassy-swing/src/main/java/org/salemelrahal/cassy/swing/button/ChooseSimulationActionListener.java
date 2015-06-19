@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 
+import org.salemelrahal.cassy.simulation.impl.SimulationRegistry;
 import org.salemelrahal.cassy.swing.canvas.DisplayField;
-import org.salemelrahal.gol.simulation.impl.SimulationRegistry;
 
 public class ChooseSimulationActionListener implements ActionListener{
 	private DisplayField displayGrid;

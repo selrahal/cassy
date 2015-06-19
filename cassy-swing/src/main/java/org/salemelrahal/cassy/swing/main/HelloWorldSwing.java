@@ -13,9 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 
-import org.salemelrahal.cassy.common.field.grid.GridFactory;
-import org.salemelrahal.cassy.gol.general.LifeSimulation;
 import org.salemelrahal.cassy.simulation.SimulationConfiguration;
+import org.salemelrahal.cassy.simulation.grid.GridFactory;
+import org.salemelrahal.cassy.simulation.impl.SimulationRegistry;
+import org.salemelrahal.cassy.simulation.model.life.LifeSimulation;
 import org.salemelrahal.cassy.swing.button.ChooseScaleActionListener;
 import org.salemelrahal.cassy.swing.button.ChooseSimulationActionListener;
 import org.salemelrahal.cassy.swing.button.ChooseSizeActionListener;
@@ -25,7 +26,6 @@ import org.salemelrahal.cassy.swing.mouse.BinaryMouseAdapter;
 import org.salemelrahal.cassy.swing.registry.ScaleListRegistry;
 import org.salemelrahal.cassy.swing.registry.SizeListRegistry;
 import org.salemelrahal.gol.game.impl.Simulation;
-import org.salemelrahal.gol.simulation.impl.SimulationRegistry;
  
 /**
  * This GUI is still a work in progress :)

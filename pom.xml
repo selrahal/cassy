@@ -3,13 +3,11 @@
   <groupId>org.salemelrahal</groupId>
   <artifactId>cassy</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>Game of Life Simulator</name>
+  <name>Cellular Automata Simulator</name>
   <packaging>pom</packaging>
   <modules>
-  	<module>cassy-api</module>
-  	<module>cassy-models</module>
-  	<module>cassy-engine</module>
-  	<module>cassy-runner</module>
+  	<module>cassy-core</module>
+  	<module>cassy-cli</module>
   	<module>cassy-swing</module>
   </modules>
 </project>
